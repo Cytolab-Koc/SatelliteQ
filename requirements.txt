@@ -1,0 +1,84 @@
+# ============================================================================
+# SatelliteQ V26 — Python dependencies
+# ============================================================================
+# INSTALL
+#   Windows (from the repository folder):
+#       py -3.10 -m venv .venv
+#       .\.venv\Scripts\python.exe -m pip install --upgrade pip
+#       .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+#
+#   macOS / Linux (from the repository folder):
+#       python3 -m venv .venv
+#       .venv/bin/python -m pip install --upgrade pip
+#       .venv/bin/python -m pip install -r requirements.txt
+#
+# RUN
+#       python SatelliteQ_Python_V26.py
+#
+# Python 3.10 was specified during development. The version ranges below are
+# installation constraints, NOT a published compatibility-testing matrix.
+# Test and record exact package versions on Windows and macOS before making
+# reproducibility claims for a release (see commands at the bottom).
+# pip automatically installs transitive dependencies (e.g., Python-dateutil,
+# pytz, contourpy and Pillow) when needed by the five packages below.
+# ============================================================================
+
+# NumPy: numerical arrays and calculations, including spatial organization.
+# Import in V26: import numpy as np
+numpy>=1.26,<3
+
+# pandas: imports Fiji CSV/TSV/Excel data; groups results by image, cell,
+# condition, replicate and frame; constructs summary tables.
+# Import in V26: import pandas as pd
+pandas>=2.2,<3
+
+# Matplotlib: saves static publication-style plots (PNG and other formats).
+# Import in V26: import matplotlib.pyplot as plt
+matplotlib>=3.8,<4
+
+# Plotly: generates browser-based Graph/Experiment Explorers and Spatial Viewer.
+# V26 uses plotly.offline, embedded in the generated HTML reports.
+plotly>=5.18,<7
+
+# openpyxl: pandas' Excel writing engine; Excel workbook formatting and tables.
+# V26 explicitly requests the openpyxl engine for .xlsx exports.
+openpyxl>=3.1,<4
+
+# ============================================================================
+# IMPORTANT: OTHER REQUIREMENTS (not pip-installable; do not add below)
+# ============================================================================
+# 1. Fiji / ImageJ, version 1.53 or newer, is required to run the .ijm macro.
+#    Download: https://fiji.sc/
+# 2. For 3D satellite analysis install the SEPARATE Fiji plugin:
+#       3D Objects Counter+
+#    Fiji -> Help -> Update -> Manage update sites -> Add Unlisted Site
+#       Name: 3DObjectsCounterPlus
+#       URL: https://sites.imagej.net/3DObjectsCounterPlus/
+#    Apply changes; restart Fiji; check Analyze -> 3D Objects Counter+.
+#    Do not confuse this with the built-in original 3D Objects Counter.
+# 3. Optional cilium quantification uses Fiji's Skeletonize (2D/3D) and
+#    Analyze Skeleton commands (normally present in current Fiji builds).
+# 4. Bio-Formats and local thresholding are supplied by a standard updated Fiji
+#    installation. Verify the relevant commands in Fiji before analysis.
+# 5. tkinter is part of a Python installation WITH Tk/Tcl, not a pip package:
+#       python -m tkinter
+#    The command should display a test window. On a Mac, if it does not work,
+#    use a Tk-enabled python.org installation; on Linux, your distribution
+#    may require its separate python3-tk operating-system package.
+# 6. A modern graphical browser is needed to view interactive HTML outputs.
+#    The generated Plotly HTML embeds the viewer code for local viewing.
+# 7. Have enough free disk space for raw images, intermediate Fiji data and
+#    Python reports. 3D stacks and time-lapse series can require considerable
+#    memory; RAM needs depend on image size and Z/T depth.
+# 8. The Fiji and Python V26 scripts are SEPARATE programs. Installing these
+#    Python requirements does not install or configure Fiji plugins.
+# ============================================================================
+# CHECK INSTALLATION (after activating your virtual environment)
+#   python -m pip check
+#   python -m tkinter
+#   python -c "import numpy,pandas,matplotlib,plotly,openpyxl; print('OK')"
+#   python -m pip freeze > installed_versions.txt
+# The last command documents exact installed versions on YOUR computer.
+# For reproducibility, preserve that file alongside your analysis records;
+# do not assume these minimum/maximum ranges are universally validated.
+# ============================================================================
