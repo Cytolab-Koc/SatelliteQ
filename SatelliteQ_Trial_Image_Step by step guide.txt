@@ -1,0 +1,660 @@
+SATELLITEQ TRIAL IMAGE — STEP-BY-STEP FIRST USE GUIDE
+======================================================
+
+This guide is written specifically for the file:
+
+    SatelliteQ Trial Image
+
+The image contains:
+    DAPI
+    PCM1
+    alpha-tubulin
+    centrin
+
+For this trial:
+    PCM1        = satellite marker
+    centrin     = centrosome marker
+    alpha-tubulin = cell-boundary / cytoskeletal marker
+    DAPI        = not used by SatelliteQ in this analysis
+
+IMPORTANT — CHANNEL ORDER
+-------------------------
+This guide assumes that the channels are in the order you listed:
+
+    Channel 1 = DAPI
+    Channel 2 = PCM1
+    Channel 3 = alpha-tubulin
+    Channel 4 = centrin
+
+Before starting, verify the channel order in Fiji.
+
+If your image has a different channel order, DO NOT use the numbers above.
+Use the actual channel numbers shown in Fiji.
+
+For example:
+    If PCM1 is actually Channel 3, enter 3 for "Satellite channel".
+
+The marker identity matters; the numerical channel number itself does not.
+
+
+PART 1 — BEFORE RUNNING SATELLITEQ
+==================================
+
+1. Open FIJI.
+
+2. Make sure the 3D Objects Counter+ plugin is installed.
+   SatelliteQ needs this plugin for 3D satellite segmentation.
+
+3. Open the microscopy image FIRST.
+
+   In Fiji:
+       File > Open...
+
+   Select:
+       SatelliteQ Trial Image
+
+   If the image is in a proprietary microscope format and normal File > Open
+   does not work correctly, open it using Bio-Formats.
+
+4. Inspect the image before running SatelliteQ.
+
+   Confirm that:
+       - the image contains multiple Z-slices;
+       - all four fluorescence channels are present;
+       - PCM1 satellites are visible;
+       - centrin puncta are visible;
+       - alpha-tubulin outlines the cells sufficiently well.
+
+5. Check the calibration.
+
+   In Fiji:
+       Image > Properties...
+
+   Look at:
+       Pixel width
+       Pixel height
+       Voxel depth / Z-step
+       Number of channels
+       Number of slices
+
+   If the image metadata are correct, SatelliteQ can use these values.
+
+6. Keep "SatelliteQ Trial Image" open.
+
+   Do NOT split the channels yourself.
+   Do NOT make a maximum-intensity projection yourself.
+   Do NOT threshold the image yourself.
+
+   SatelliteQ performs the required processing.
+
+
+PART 2 — START SATELLITEQ
+=========================
+
+1. With "SatelliteQ Trial Image" still open, go to:
+
+       Plugins > Macros > Run...
+
+2. Select:
+
+       SatelliteQ_V26.ijm
+
+3. A purple SatelliteQ welcome window will appear.
+
+   Click:
+       OK
+
+4. SatelliteQ will ask for the analysis mode.
+
+   Select:
+
+       3D single stack - true 3D object volume/surface/distance analysis
+
+   Then continue.
+
+Why?
+This image is a 3D Z-stack and we want PCM1 objects to be segmented through
+the complete Z-stack rather than from a 2D projection.
+
+
+PART 3 — IMAGE SCALE / CALIBRATION
+==================================
+
+SatelliteQ may show an "SatelliteQ image scale / calibration" window.
+
+If the XY pixel size and Z-step shown by Fiji are correct:
+
+    Select:
+        Use current image calibration
+
+    Click:
+        OK
+
+Only choose "Enter pixel size manually in microns" if the image metadata are
+missing or incorrect.
+
+Do not guess the pixel size or Z-step.
+
+
+PART 4 — CHOOSE THE OUTPUT FOLDER
+=================================
+
+SatelliteQ will ask:
+
+    Choose main output folder for 3D satellite results
+
+For this trial, make a simple folder such as:
+
+    SatelliteQ_Trial_Output
+
+Select that folder.
+
+SatelliteQ will automatically create a separate result folder inside it.
+
+Next, SatelliteQ asks whether to save intermediate images for visual checking.
+
+For this first trial:
+
+    Keep CHECKED:
+        Save intermediate images for visual checking
+
+Then click:
+    OK
+
+This is useful because the saved images allow you to inspect whether the
+satellites, centrosomes and cell regions were detected correctly.
+
+
+PART 5 — STEP 1/4: CHANNELS
+===========================
+
+Window:
+    SatelliteQuantify 3D - Step 1/4: Channels
+
+Assuming the channel order is:
+
+    C1 = DAPI
+    C2 = PCM1
+    C3 = alpha-tubulin
+    C4 = centrin
+
+enter:
+
+    Satellite channel:                         2
+    Centrosome channel, 0 to skip:            4
+    Cell boundary / membrane channel, 0 skip: 3
+    Primary cilium marker channel, 0 to skip: 0
+
+Then click:
+    OK
+
+Explanation:
+    Satellite channel = PCM1
+    Centrosome channel = centrin
+    Cell boundary channel = alpha-tubulin
+    Primary cilium = 0 because this trial image has no cilium marker
+
+DAPI is not required for this analysis and is therefore not entered.
+
+
+PART 6 — STEP 2/4: SATELLITES
+=============================
+
+Window:
+    SatelliteQuantify 3D - Step 2/4: Satellites
+
+For the FIRST TRIAL, use the default starting settings:
+
+    Rolling ball radius, pixels:
+        20
+
+    Threshold mode:
+        Auto
+
+    Auto-threshold method:
+        Otsu
+
+    Manual threshold value, AU:
+        100
+        NOTE: This value is ignored because "Auto" is selected.
+
+    Minimum object size:
+        1
+
+    Maximum object size:
+        999999999
+
+    Exclude objects touching stack edges:
+        UNCHECKED
+
+    Override size/edge filters and quantify every detected 3D satellite object:
+        UNCHECKED
+
+    Review detected 3D satellites in scrollable 2D/Z stack before final export:
+        CHECKED
+
+Click:
+    OK
+
+
+WHAT HAPPENS NEXT — SATELLITE REVIEW
+------------------------------------
+
+SatelliteQ will segment PCM1-positive objects throughout the Z-stack.
+
+A review stack will open.
+
+You should see:
+    - the original PCM1 signal;
+    - purple/magenta boundaries marking detected 3D objects;
+    - small yellow object IDs on relevant Z-slices.
+
+Use the Z slider to move through the stack.
+
+For this trial, ask:
+
+    Are most obvious PCM1 granules detected?
+    Are there many tiny background objects?
+    Are large areas of diffuse background incorrectly detected?
+    Do the purple boundaries correspond reasonably well to PCM1 signal?
+
+IMPORTANT:
+The 3D satellite review is VISUAL ONLY.
+You do not delete individual 3D satellite objects at this stage.
+
+When you have inspected several Z-slices, click:
+    OK
+
+If segmentation looks obviously poor, it is better to rerun the trial later
+with adjusted satellite settings rather than accepting unsuitable settings.
+
+
+PART 7 — STEP 3/4: CENTROSOMES
+==============================
+
+Because you entered a centrin channel, SatelliteQ will open:
+
+    SatelliteQuantify 3D - Step 3/4: Centrosomes
+
+For the first trial, use:
+
+    Centrosome selection mode:
+        Automatic bright puncta then review
+
+    Centrosome rolling ball radius, pixels:
+        20
+
+    Centrosome threshold mode:
+        Percent of max
+
+    Centrosome mean + SD multiplier:
+        4.0
+        NOTE: ignored because "Percent of max" is selected.
+
+    Centrosome percent of max:
+        55
+
+    Centrosome manual threshold value, AU:
+        100
+        NOTE: ignored because "Percent of max" is selected.
+
+    Minimum centrosome area on max projection, micrometers^2:
+        0.003
+
+    Maximum centrosome area on max projection, micrometers^2:
+        0.8
+
+    Maximum centrosomes to keep, 0 = keep all:
+        0
+
+    Centrosome display circle diameter, pixels:
+        18
+
+    Centrosome ROI review image:
+        Centrosome channel + satellite channel
+
+Click:
+    OK
+
+
+CENTROSOME REVIEW
+-----------------
+
+SatelliteQ will show detected centrosomes in the ROI Manager.
+
+Scroll through Z and check the centrin signal.
+
+If an ROI is NOT a real centrosome:
+    - select that ROI in ROI Manager;
+    - delete it.
+
+If a real centrosome is missing:
+    - draw a small circular ROI around the missing centrin focus;
+    - press T to add the ROI to ROI Manager.
+
+Keep only the ROIs that correspond to real centrosomes.
+
+When finished, click:
+    OK
+
+SatelliteQ will estimate the Z-position of each accepted centrosome
+automatically.
+
+
+PART 8 — STEP 4/4: CELL ASSIGNMENT
+==================================
+
+Window:
+    SatelliteQuantify 3D - Step 4/4: Cell assignment
+
+We want to use alpha-tubulin to define the cells.
+
+Select:
+
+    Cell assignment mode:
+        Cytoplasmic signal boundary - 2D projected ROI
+
+    Cell sphere radius around centrosomes:
+        15
+        NOTE: ignored because we are not using centrosome-centered spheres.
+
+    Cell boundary source type:
+        Microtubule/cytoskeleton staining
+
+For the FIRST TRIAL, start with:
+
+    Cell rolling ball radius, pixels:
+        0
+
+    Cell threshold mode:
+        Global auto threshold
+
+    Cell global threshold method:
+        Otsu
+
+    Cell local threshold method:
+        Phansalkar
+        NOTE: ignored while "Global auto threshold" is selected.
+
+    Local threshold radius, pixels:
+        25
+        NOTE: ignored while "Global auto threshold" is selected.
+
+    Manual cell threshold value, AU:
+        80
+        NOTE: ignored while "Global auto threshold" is selected.
+
+    Microtubule/cytoskeleton preprocessing strength:
+        Medium
+
+    Cell mask cleanup strength:
+        Standard
+
+    Cell ROI drawing/review image:
+        Cell signal channel + cell boundary + centrosome + centrosome numbers + satellite
+
+    Split touching/large projected cell ROIs with watershed:
+        UNCHECKED for the first trial
+
+    Watershed over-splitting protection:
+        Medium
+        NOTE: only relevant if watershed is enabled.
+
+    Minimum cell filter:
+        100
+
+    Maximum cell filter:
+        1000000000000
+        (the default very large maximum value)
+
+Click:
+    OK
+
+
+PART 9 — WHERE TO DETECT / EXPORT SATELLITES
+============================================
+
+SatelliteQ will ask whether satellites outside the selected cell regions
+should be included.
+
+For this trial select:
+
+    Selected cell ROIs only - ignore outside
+
+Then continue.
+
+
+PART 10 — REVIEW THE CELL ROIs
+==============================
+
+SatelliteQ will create projected cell ROIs from the alpha-tubulin channel.
+
+A review image and ROI Manager will appear.
+
+Look at each numbered cell ROI.
+
+A good ROI should approximately follow the full cell region and should not:
+    - combine several cells into one enormous ROI;
+    - include mostly empty background;
+    - cut away a large part of the cell.
+
+You can edit the ROIs in Fiji's ROI Manager.
+
+You may:
+    - delete incorrect ROIs;
+    - edit an ROI boundary;
+    - add a missing cell ROI manually.
+
+When the cell ROIs look acceptable, click:
+    OK
+
+SatelliteQ will then ask:
+
+    Accept cell ROIs and continue
+or
+    Change cell ROI settings and re-detect
+
+If the ROIs look acceptable, choose:
+
+    Accept cell ROIs and continue
+
+If they are poor, choose:
+
+    Change cell ROI settings and re-detect
+
+A useful first alternative for difficult alpha-tubulin images is:
+
+    Cell threshold mode:
+        Local auto threshold
+
+    Cell local threshold method:
+        Phansalkar
+
+Keep the cytoskeleton preprocessing enabled and inspect the ROIs again.
+
+
+PART 11 — IF A CELL HAS MORE THAN ONE CENTROSOME
+================================================
+
+SatelliteQ may ask how to handle multiple centrosomes in the same cell.
+
+For a normal RPE1 trial image, a practical option is:
+
+    Use all centrosomes in cell (assign nearest)
+
+This assigns each satellite to the nearest accepted centrosome within its cell.
+
+Keep the same policy when comparing experimental conditions.
+
+
+PART 12 — FINISHING THE FIJI ANALYSIS
+=====================================
+
+SatelliteQ will finish the analysis and show a completion message.
+
+The message includes:
+    - satellite count;
+    - the path of the clean 3D results CSV;
+    - the output folder;
+    - the selected-options summary.
+
+The main results file will have a name similar to:
+
+    SatelliteQ Trial Image_3D_YYYY_MM_DD_HH_MM_SS_results.csv
+
+The exact date/time part will be different for your run.
+
+DO NOT choose files such as:
+    *_cell_boundaries_for_python.csv
+    temporary files
+    QC TIFF images
+
+when you later open the main data in Python.
+
+
+PART 13 — RUN THE SATELLITEQ PYTHON MODULE
+==========================================
+
+After Fiji finishes:
+
+1. Open Terminal / Command Prompt in the folder containing:
+
+       SatelliteQ_Python_V26.py
+
+2. Run the Python program.
+
+Windows, commonly:
+       python SatelliteQ_Python_V26.py
+
+macOS, commonly:
+       python3 SatelliteQ_Python_V26.py
+
+If you use the SatelliteQ virtual environment, activate it first or run the
+Python executable inside that environment.
+
+
+PART 14 — WHAT TO SELECT IN THE PYTHON FILE PICKER
+==================================================
+
+SatelliteQ Python will ask whether you want to select a folder.
+
+For ONE trial image, the simplest option is:
+
+    Choose:
+        No = select one CSV/Excel file
+
+Then select the MAIN Fiji 3D result CSV, the file ending in:
+
+    _3D_..._results.csv
+
+For example:
+
+    SatelliteQ Trial Image_3D_2026_10_02_15_30_00_results.csv
+
+Do not select:
+    the cell-boundary CSV,
+    a QC TIFF,
+    a settings text file,
+    or a temporary file.
+
+
+PART 15 — WHAT PYTHON WILL PRODUCE
+=================================
+
+SatelliteQ Python will create a report folder next to the selected Fiji file.
+
+The outputs can include:
+    - an Excel report;
+    - satellite-level measurements;
+    - cell-level measurements;
+    - image-level measurements;
+    - spatial measurements;
+    - Graph Explorer;
+    - Experiment Viewer;
+    - Spatial Viewer;
+    - supporting explanation / settings files.
+
+For the first trial, open:
+
+    1. the main Excel report;
+    2. the Spatial Viewer HTML;
+    3. the Graph Explorer HTML.
+
+Use the Spatial Viewer first to check whether:
+    - satellites are in reasonable positions;
+    - centrosomes are in the expected positions;
+    - cells are assigned correctly.
+
+This is a QUALITY-CONTROL TRIAL, not an experimental comparison.
+
+
+QUICK SETTINGS SUMMARY
+======================
+
+Assuming:
+    C1 DAPI
+    C2 PCM1
+    C3 alpha-tubulin
+    C4 centrin
+
+USE:
+
+Analysis mode:
+    3D single stack
+
+Channels:
+    Satellite = 2
+    Centrosome = 4
+    Cell boundary = 3
+    Cilium = 0
+
+Satellite segmentation:
+    Rolling ball = 20
+    Auto threshold = Otsu
+    Minimum size = 1
+    Maximum size = 999999999
+    Exclude edges = OFF
+    Override filters = OFF
+    Review = ON
+
+Centrosomes:
+    Automatic bright puncta then review
+    Rolling ball = 20
+    Threshold = Percent of max
+    Percent of max = 55
+    Min area = 0.003 um^2
+    Max area = 0.8 um^2
+    Maximum to keep = 0
+    Review display = Centrosome + satellite
+
+Cell assignment:
+    Cytoplasmic signal boundary - 2D projected ROI
+    Boundary source = Microtubule/cytoskeleton staining
+    Rolling ball = 0
+    Global auto threshold = Otsu
+    Cytoskeleton preprocessing = Medium
+    Cleanup = Standard
+    Watershed = OFF
+    Minimum cell area = 100 um^2
+    Accept only after reviewing the cell ROIs
+
+Export:
+    Selected cell ROIs only - ignore outside
+
+
+IMPORTANT FINAL NOTE
+====================
+
+These settings are intended as a USER-FRIENDLY STARTING POINT for the
+"SatelliteQ Trial Image", not as universal settings for every experiment.
+
+The most important part of the trial is to visually check:
+
+    1. PCM1 satellite segmentation
+    2. centrin centrosome detection
+    3. alpha-tubulin cell boundaries
+    4. satellite-to-cell assignment
+    5. the final Spatial Viewer
+
+Once settings are optimized on representative images, use the same settings
+for directly compared images within the same experiment.
