@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-SATELLITEQ_VERSION = "V26"
+SATELLITEQ_VERSION = "V1.0.0"
 PCI_INNER_RADIUS_UM = 3.0
 PCI_OUTER_RADIUS_UM = 12.0
 PCI_STD_INNER_COL = "Std_Cell_Pericentrosomal_Inner_0_3um_Intensity"
