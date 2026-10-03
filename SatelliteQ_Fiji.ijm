@@ -1,7 +1,7 @@
 // SatelliteQ
 requires("1.53");
 
-SATELLITEQ_VERSION = "V26";
+SATELLITEQ_VERSION = "V1.0.0";
 
 
 function pad3(n) {
