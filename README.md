@@ -13,5 +13,6 @@ SatelliteQ is now available as a preprint on bioRxiv!
 You can read the manuscript here: 
 
 **SatelliteQ — bioRxiv (2026) DOI: 10.64898/2026.10.07.756960 **
+https://www.biorxiv.org/content/10.64898/2026.10.07.756960v1.article-info
 
 If you use SatelliteQ in your research, please consider citing our preprint.
