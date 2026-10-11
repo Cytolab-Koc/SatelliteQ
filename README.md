@@ -8,3 +8,10 @@ Getting started
 2. Install Python and the dependencies specified in requirements.txt.
 3. Run the SatelliteQ Fiji macro on a microscopy image.
 4. Open the Fiji results using the SatelliteQ Python program to generate reports and interactive visualizations.
+
+SatelliteQ is now available as a preprint on bioRxiv! 
+You can read the manuscript here: 
+
+**SatelliteQ — bioRxiv (2026) DOI: 10.64898/2026.10.07.756960 **
+
+If you use SatelliteQ in your research, please consider citing our preprint.
